@@ -1,5 +1,5 @@
-import { Pool, ResultSetHeader } from 'mysql2/promise';
-import { User } from '../interfaces';
+import { Pool, ResultSetHeader, RowDataPacket } from 'mysql2/promise';
+import { Login, User } from '../interfaces';
 
 export default class UserModel {
   private connection: Pool;
@@ -22,5 +22,23 @@ export default class UserModel {
     );
 
     return insertId;
+  };
+
+  public login = async ({ username, password }: Login) => {
+    const [usernameExists] = await this.connection.execute<RowDataPacket[] & User[]>(
+      `
+        SELECT * FROM Trybesmith.users WHERE username = ?  
+      `,
+      [username],
+    );
+
+    const [passwordExists] = await this.connection.execute<RowDataPacket[] & User[]>(
+      `
+        SELECT * FROM Trybesmith.users WHERE password = ?
+      `,
+      [password],
+    );
+
+    return { usernameExists, passwordExists };
   };
 }
