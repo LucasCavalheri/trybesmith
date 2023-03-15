@@ -1,11 +1,12 @@
 import { Request, Response } from 'express';
+import { Product } from '../interfaces';
 import ProductService from '../services/ProductService';
 
 export default class ProductController {
   constructor(private productService = new ProductService()) {}
 
   public createProduct = async (req: Request, res: Response) => {
-    const product = req.body;
+    const product = req.body as Product;
 
     const createdProduct = await this.productService.createProduct(product);
     return res.status(201).json(createdProduct);
