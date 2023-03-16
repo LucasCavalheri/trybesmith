@@ -13,7 +13,7 @@
 Este projeto foi desenvolvido usando as seguintes tecnologias:
 
 -  **TypeScript** como linguagem;
--  **MySQL**, para criação e gerenciamento do banco de dados;
+-  **MySQL** para criação e gerenciamento do banco de dados;
 -  **Express** para criação de rotas e requisições;
 -  **JWT** para validação e segurança de rotas;
 -  **Joi** para validações de dados;
